@@ -1,9 +1,7 @@
-// This sample demonstrates handling intents from an Alexa skill using the Alexa Skills Kit SDK (v2).
-// Please visit https://alexa.design/cookbook for additional examples on implementing slots, dialog management,
-// session persistence, api calls, and more.
-import { ErrorHandler, RequestHandler, SkillBuilders, getRequestType, getIntentName } from 'ask-sdk-core'
-
+import { ErrorHandler, RequestHandler, SkillBuilders, getRequestType, getIntentName, getSlotValue } from 'ask-sdk-core'
 import { SessionEndedRequest } from 'ask-sdk-model'
+
+import { getJoke } from './utils'
 
 const LaunchRequestHandler: RequestHandler = {
     canHandle(handlerInput) {
@@ -29,13 +27,15 @@ const GeneralJokeIntentHandler: RequestHandler = {
 
 const SpecificJokeIntentHandler: RequestHandler = {
     canHandle(handlerInput) {
-        console.log('I WAS CALLED')
         return (
             getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
             getIntentName(handlerInput.requestEnvelope) === 'SpecificJokeIntent'
         )
     },
     handle(handlerInput) {
+        const requestEnvelope = handlerInput.requestEnvelope
+        const slot = getSlotValue(requestEnvelope, 'topic')
+        getJoke(slot)
         const speakOutput = 'This is a specific joke'
         return handlerInput.responseBuilder.speak(speakOutput).reprompt('want to hear another?').getResponse()
     },
