@@ -16,16 +16,21 @@
                     "samples": []
                 },
                 {
-                    "name": "HelloWorldIntent",
-                    "slots": [],
+                    "name": "GeneralJokeIntent",
+                    "samples": ["tell me a bad joke", "tell me a joke", "give me a joke"]
+                },
+                {
+                    "name": "SpecificJokeIntent",
+                    "slots": [
+                        {
+                            "name": "topic",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
                     "samples": [
-                        "hello",
-                        "how are you",
-                        "say hi world",
-                        "say hi",
-                        "hi",
-                        "say hello world",
-                        "say hello"
+                        "tell me a joke about {topic}",
+                        "tell me a bad joke about {topic}",
+                        "give me a joke about {topic}"
                     ]
                 },
                 {
@@ -36,5 +41,4 @@
             "types": []
         }
     }
-  }
-  
+}

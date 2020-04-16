@@ -1,30 +1,26 @@
 {
-  "manifest": {
-    "publishingInformation": {
-      "locales": {
-        "en-GB": {
-          "summary": "Sample Short Description",
-          "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
-          ],
-          "name": "lukesbadjokes",
-          "description": "Sample Full Description"
-        }
-      },
-      "isAvailableWorldwide": true,
-      "testingInstructions": "Sample Testing Instructions.",
-      "category": "KNOWLEDGE_AND_TRIVIA",
-      "distributionCountries": []
-    },
-    "apis": {
-      "custom": {
-        "endpoint": {
-          "uri": "arn:aws:lambda:eu-west-1:680263028754:function:ask-lukesbadjokes-default-default-1586982625944"
-        }
-      }
-    },
-    "manifestVersion": "1.0"
-  }
+    "manifest": {
+        "publishingInformation": {
+            "locales": {
+                "en-GB": {
+                    "summary": "Want to hear a bad joke? You're in the right place!",
+                    "examplePhrases": ["Alexa open luke's jokes", "hello", "help"],
+                    "name": "lukesbadjokes",
+                    "description": "Sample Full Description"
+                }
+            },
+            "isAvailableWorldwide": true,
+            "testingInstructions": "Sample Testing Instructions.",
+            "category": "KNOWLEDGE_AND_TRIVIA",
+            "distributionCountries": []
+        },
+        "apis": {
+            "custom": {
+                "endpoint": {
+                    "uri": "arn:aws:lambda:eu-west-1:680263028754:function:ask-lukesbadjokes-default-default-1586982625944"
+                }
+            }
+        },
+        "manifestVersion": "1.0"
+    }
 }

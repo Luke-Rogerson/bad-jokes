@@ -10,27 +10,37 @@ const LaunchRequestHandler: RequestHandler = {
         return getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest'
     },
     handle(handlerInput) {
-        const speakOutput = 'HELLO! I AM SO EXCITED TO SEE YOU!'
+        const speakOutput = 'Hi! Ready to hear a fantasic joke?'
         return handlerInput.responseBuilder.speak(speakOutput).reprompt(speakOutput).getResponse()
     },
 }
-const HelloWorldIntentHandler: RequestHandler = {
+const GeneralJokeIntentHandler: RequestHandler = {
     canHandle(handlerInput) {
         return (
             getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-            getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent'
+            getIntentName(handlerInput.requestEnvelope) === 'GeneralJokeIntent'
         )
     },
     handle(handlerInput) {
-        const speakOutput = 'Hello World!'
-        return (
-            handlerInput.responseBuilder
-                .speak(speakOutput)
-                //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
-                .getResponse()
-        )
+        const speakOutput = 'This is a general joke'
+        return handlerInput.responseBuilder.speak(speakOutput).reprompt('want to hear another?').getResponse()
     },
 }
+
+const SpecificJokeIntentHandler: RequestHandler = {
+    canHandle(handlerInput) {
+        console.log('I WAS CALLED')
+        return (
+            getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
+            getIntentName(handlerInput.requestEnvelope) === 'SpecificJokeIntent'
+        )
+    },
+    handle(handlerInput) {
+        const speakOutput = 'This is a specific joke'
+        return handlerInput.responseBuilder.speak(speakOutput).reprompt('want to hear another?').getResponse()
+    },
+}
+
 const HelpIntentHandler: RequestHandler = {
     canHandle(handlerInput) {
         return (
@@ -112,7 +122,8 @@ const ErrorHandler: ErrorHandler = {
 exports.handler = SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
-        HelloWorldIntentHandler,
+        GeneralJokeIntentHandler,
+        SpecificJokeIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,
