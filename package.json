@@ -1,0 +1,21 @@
+{
+  "name": "lukesbadjokes",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Luke-Rogerson/bad-jokes.git",
+  "author": "Luke Rogerson",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc && cp lambda/package.json lambda/util.js dist",
+    "deploy": "yarn build && ask deploy"
+  },
+  "dependencies": {
+    "ask-sdk": "^2.8.0",
+    "ask-sdk-core": "^2.6.0",
+    "ask-sdk-model": "^1.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.11.1",
+    "typescript": "^3.8.3"
+  }
+}

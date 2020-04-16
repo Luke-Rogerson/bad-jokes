@@ -8,7 +8,7 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput: any) {
-        const speakOutput = 'Super duper!';
+        const speakOutput = 'NO WAY, NOPE!';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(speakOutput)

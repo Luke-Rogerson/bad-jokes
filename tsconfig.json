@@ -7,7 +7,8 @@
       "DOM"
     ],
     "sourceMap": false,
-    "outDir": "./dist",
+    "rootDir": "lambda/src",
+    "outDir": "dist",
     "moduleResolution": "node",
     "removeComments": true,
     "noImplicitAny": true,
@@ -27,9 +28,5 @@
   },
   "exclude": [
     "node_modules"
-  ],
-  "include": [
-    "./src/**/*.tsx",
-    "./src/**/*.ts"
   ]
 }
