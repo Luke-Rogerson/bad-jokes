@@ -1,15 +1,14 @@
 import { ErrorHandler, RequestHandler, SkillBuilders, getRequestType, getIntentName, getSlotValue } from 'ask-sdk-core'
-import { SessionEndedRequest } from 'ask-sdk-model'
 
 import { getJoke } from './jokeUtils/jokeUtils'
+import { intro, slotName, reprompt, help, bye, jokeSearchError, generalJokeError, generalError } from './constants'
 
 const LaunchRequestHandler: RequestHandler = {
     canHandle(handlerInput) {
         return getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest'
     },
     handle(handlerInput) {
-        const speakOutput = 'Hi! Ready to hear a fantasic joke?'
-        return handlerInput.responseBuilder.speak(speakOutput).reprompt(speakOutput).getResponse()
+        return handlerInput.responseBuilder.speak(intro).reprompt(intro).getResponse()
     },
 }
 const GeneralJokeIntentHandler: RequestHandler = {
@@ -24,9 +23,9 @@ const GeneralJokeIntentHandler: RequestHandler = {
         if (joke)
             return handlerInput.responseBuilder
                 .speak(`${joke.question} ${joke.answer}`)
-                .reprompt('want to hear another?')
+                .reprompt(reprompt)
                 .getResponse()
-        return handlerInput.responseBuilder.speak(`I'm not feeling it right now. Ask me again later.`).getResponse()
+        return handlerInput.responseBuilder.speak(generalJokeError).getResponse()
     },
 }
 
@@ -39,17 +38,14 @@ const SpecificJokeIntentHandler: RequestHandler = {
     },
     async handle(handlerInput) {
         const requestEnvelope = handlerInput.requestEnvelope
-        const slot = getSlotValue(requestEnvelope, 'topic')
+        const slot = getSlotValue(requestEnvelope, slotName)
         const joke = await getJoke(slot)
         if (joke)
             return handlerInput.responseBuilder
                 .speak(`${joke.question} ${joke.answer}`)
-                .reprompt('want to hear another?')
+                .reprompt(reprompt)
                 .getResponse()
-        return handlerInput.responseBuilder
-            .speak(`I don't know that one. Ask me again.`)
-            .reprompt('want to hear another?')
-            .getResponse()
+        return handlerInput.responseBuilder.speak(jokeSearchError).reprompt(reprompt).getResponse()
     },
 }
 
@@ -61,9 +57,7 @@ const HelpIntentHandler: RequestHandler = {
         )
     },
     handle(handlerInput) {
-        const speakOutput = 'Howdi!'
-
-        return handlerInput.responseBuilder.speak(speakOutput).reprompt(speakOutput).getResponse()
+        return handlerInput.responseBuilder.speak(help).reprompt(help).getResponse()
     },
 }
 const CancelAndStopIntentHandler: RequestHandler = {
@@ -75,8 +69,7 @@ const CancelAndStopIntentHandler: RequestHandler = {
         )
     },
     handle(handlerInput) {
-        const speakOutput = 'Goodbye!'
-        return handlerInput.responseBuilder.speak(speakOutput).getResponse()
+        return handlerInput.responseBuilder.speak(bye).getResponse()
     },
 }
 const SessionEndedRequestHandler: RequestHandler = {
@@ -84,10 +77,6 @@ const SessionEndedRequestHandler: RequestHandler = {
         return getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest'
     },
     handle(handlerInput) {
-        // Any cleanup logic goes here.
-        console.log(
-            `Session ended with reason: ${(handlerInput.requestEnvelope.request as SessionEndedRequest).reason}`
-        )
         return handlerInput.responseBuilder.getResponse()
     },
 }
@@ -120,17 +109,11 @@ const ErrorHandler: ErrorHandler = {
     canHandle() {
         return true
     },
-    handle(handlerInput, error) {
-        console.log(`~~~~ Error handled: ${error.stack}`)
-        const speakOutput = `Sorry, I had trouble doing what you asked. Please try again.`
-
-        return handlerInput.responseBuilder.speak(speakOutput).reprompt(speakOutput).getResponse()
+    handle(handlerInput) {
+        return handlerInput.responseBuilder.speak(generalError).getResponse()
     },
 }
 
-// The SkillBuilder acts as the entry point for your skill, routing all request and response
-// payloads to the handlers above. Make sure any new handlers or interceptors you've
-// defined are included below. The order matters - they're processed top to bottom.
 exports.handler = SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
