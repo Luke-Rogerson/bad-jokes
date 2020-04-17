@@ -8,3 +8,4 @@ export const bye = `Come again for some more hysterical jokes!`
 export const generalJokeError = `I'm not feeling it right now. Ask me again later.`
 export const jokeSearchError = `I don't know that one. Ask me again.`
 export const generalError = `I had a problem with that one. Try again later.`
+export const regExp = /(sub|reddit|cake day|edit|dad jokes|removed)/i

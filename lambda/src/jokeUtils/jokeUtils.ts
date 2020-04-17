@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { baseUrl, params } from '../constants'
+import { baseUrl, params, regExp } from '../constants'
 import { SpecificJokeResponse, Child } from './jokeUtils.types'
 
 interface Joke {
@@ -19,7 +19,12 @@ const fetchJokePosts = async (query?: string): Promise<SpecificJokeResponse | nu
 }
 
 const normaliseJokes = (posts: readonly Child[]): Joke[] =>
-    posts.map(({ data }) => ({ question: data.title, answer: data.selftext }))
+    posts
+        // remove nsfw posts and those that aren't jokes
+        .filter(({ data }) => data.over_18 === false && (!data.title.match(regExp) || !data.selftext.match(regExp)))
+        .map(({ data }) => {
+            return { question: data.title, answer: data.selftext }
+        })
 
 const randomNumber = (max: number): number => Math.floor(Math.random() * max)
 
