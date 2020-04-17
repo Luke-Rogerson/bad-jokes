@@ -1,7 +1,7 @@
 import { ErrorHandler, RequestHandler, SkillBuilders, getRequestType, getIntentName, getSlotValue } from 'ask-sdk-core'
 import { SessionEndedRequest } from 'ask-sdk-model'
 
-import { getJoke } from './utils'
+import { getJoke } from './jokeUtils/jokeUtils'
 
 const LaunchRequestHandler: RequestHandler = {
     canHandle(handlerInput) {
@@ -32,12 +32,19 @@ const SpecificJokeIntentHandler: RequestHandler = {
             getIntentName(handlerInput.requestEnvelope) === 'SpecificJokeIntent'
         )
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         const requestEnvelope = handlerInput.requestEnvelope
         const slot = getSlotValue(requestEnvelope, 'topic')
-        getJoke(slot)
-        const speakOutput = 'This is a specific joke'
-        return handlerInput.responseBuilder.speak(speakOutput).reprompt('want to hear another?').getResponse()
+        const joke = await getJoke(slot)
+        if (joke)
+            return handlerInput.responseBuilder
+                .speak(`${joke.question} ${joke.answer}`)
+                .reprompt('want to hear another?')
+                .getResponse()
+        return handlerInput.responseBuilder
+            .speak(`I don't know that one. Ask me again.`)
+            .reprompt('want to hear another?')
+            .getResponse()
     },
 }
 

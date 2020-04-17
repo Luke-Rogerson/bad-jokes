@@ -1,14 +1,14 @@
-export interface Welcome {
+export interface SpecificJokeResponse {
     kind: string
-    data: WelcomeData
+    data: SpecificJokeResponseData
 }
 
-export interface WelcomeData {
-    after: string
+export interface SpecificJokeResponseData {
+    after: string | null
     dist: number
     facets: Facets
     modhash: string
-    children: Child[]
+    children: Child[] | null
     before: null
 }
 
