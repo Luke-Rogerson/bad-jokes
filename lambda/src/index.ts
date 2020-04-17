@@ -19,9 +19,14 @@ const GeneralJokeIntentHandler: RequestHandler = {
             getIntentName(handlerInput.requestEnvelope) === 'GeneralJokeIntent'
         )
     },
-    handle(handlerInput) {
-        const speakOutput = 'This is a general joke'
-        return handlerInput.responseBuilder.speak(speakOutput).reprompt('want to hear another?').getResponse()
+    async handle(handlerInput) {
+        const joke = await getJoke()
+        if (joke)
+            return handlerInput.responseBuilder
+                .speak(`${joke.question} ${joke.answer}`)
+                .reprompt('want to hear another?')
+                .getResponse()
+        return handlerInput.responseBuilder.speak(`I'm not feeling it right now. Ask me again later.`).getResponse()
     },
 }
 
