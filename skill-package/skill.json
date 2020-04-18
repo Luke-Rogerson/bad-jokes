@@ -6,16 +6,18 @@
           "summary": "Want to hear a bad joke? You're in the right place!",
           "examplePhrases": [
             "Alexa, open luke's jokes",
-            "tell me a joke about",
+            "tell me a joke about pizza",
             "tell me a bad joke"
           ],
-          "name": "lukesbadjokes",
-          "description": "This skill will tell you bad jokes about a requested topic, or simply general terrible jokes."
+          "name": "Luke's jokes",
+          "description": "This skill will tell you bad jokes about a requested topic, or simply general terrible jokes.",
+          "smallIconUri": "file://assets/en-GB_smallIcon.png",
+          "largeIconUri": "file://assets/en-GB_largeIcon.png"
         }
       },
       "isAvailableWorldwide": true,
-      "testingInstructions": "Sample Testing Instructions.",
-      "category": "KNOWLEDGE_AND_TRIVIA",
+      "testingInstructions": "Open skill, the ask it to tell you a joke, or to tell you a joke about _____",
+      "category": "NOVELTY",
       "distributionCountries": []
     },
     "apis": {
