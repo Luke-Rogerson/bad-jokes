@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { baseUrl, params, regExp } from '../constants'
+import { baseUrl, regExp } from '../constants'
 import { SpecificJokeResponse, Child } from './jokeUtils.types'
 
 interface Joke {
@@ -10,11 +10,11 @@ interface Joke {
 const fetchJokePosts = async (query?: string): Promise<SpecificJokeResponse | null> => {
     // get joke posts about a specific topic
     if (query) {
-        const response = await fetch(`${baseUrl}/search.json?q=${query}&restrict_sr=on&sort=top&${params}`)
+        const response = await fetch(`${baseUrl}/search.json?q=${query}&restrict_sr=on&sort=top&t=all&count=100`)
         return await response.json()
     }
     // get general joke posts
-    const response = await fetch(`${baseUrl}/top/.json?${params}`)
+    const response = await fetch(`${baseUrl}/top/.json?t=week&count=100`)
     return await response.json()
 }
 
