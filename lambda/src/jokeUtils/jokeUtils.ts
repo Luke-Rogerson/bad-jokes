@@ -9,19 +9,19 @@ interface Joke {
 
 const fetchJokePosts = async (query?: string): Promise<SpecificJokeResponse | null> => {
     // get joke posts about a specific topic
-    let response
     if (query) {
-        response = await fetch(`${baseUrl}/search.json?q=${query}&restrict_sr=on&sort=top&${params}`)
+        const response = await fetch(`${baseUrl}/search.json?q=${query}&restrict_sr=on&sort=top&${params}`)
+        return await response.json()
     }
     // get general joke posts
-    response = await fetch(`${baseUrl}/top/.json?${params}`)
+    const response = await fetch(`${baseUrl}/top/.json?${params}`)
     return await response.json()
 }
 
-const normaliseJokes = (posts: readonly Child[]): Joke[] =>
+const normaliseJokes = (posts: readonly Child[]): Joke[] | [] =>
     posts
         // remove nsfw posts and those that aren't jokes
-        .filter(({ data }) => data.over_18 === false && (!data.title.match(regExp) || !data.selftext.match(regExp)))
+        .filter(({ data }) => data.over_18 === false && !data.title.match(regExp) && !data.selftext.match(regExp))
         .map(({ data }) => {
             return { question: data.title, answer: data.selftext }
         })
@@ -33,7 +33,7 @@ export const getJoke = async (query?: string): Promise<Joke | null> => {
     if (response?.data.children && response.data.children.length > 1) {
         const jokes = normaliseJokes(response.data.children)
         // return a random joke from selection
-        return jokes[randomNumber(jokes.length)]
+        return Boolean(jokes.length >= 1) ? jokes[randomNumber(jokes.length)] : null
     }
     return null
 }
