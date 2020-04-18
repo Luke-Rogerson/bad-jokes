@@ -17,7 +17,13 @@
                 },
                 {
                     "name": "GeneralJokeIntent",
-                    "samples": ["tell me a bad joke", "tell me a joke", "give me a joke"]
+                    "samples": [
+                        "tell me a bad joke",
+                        "tell me a joke",
+                        "give me a joke",
+                        "tell me another bad joke",
+                        "tell me another joke"
+                    ]
                 },
                 {
                     "name": "SpecificJokeIntent",
@@ -30,7 +36,9 @@
                     "samples": [
                         "tell me a joke about {topic}",
                         "tell me a bad joke about {topic}",
-                        "give me a joke about {topic}"
+                        "give me a joke about {topic}",
+                        "tell me another joke about {topic}",
+                        "tell me another bad joke about {topic}"
                     ]
                 },
                 {
