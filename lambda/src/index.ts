@@ -22,7 +22,7 @@ const GeneralJokeIntentHandler: RequestHandler = {
         const joke = await getJoke()
         if (joke)
             return handlerInput.responseBuilder
-                .speak(`${joke.question} ${joke.answer}`)
+                .speak(`${joke.question} <break time="2s"/> ${joke.answer}`)
                 .reprompt(reprompt)
                 .getResponse()
         return handlerInput.responseBuilder.speak(generalJokeError).getResponse()
@@ -42,7 +42,7 @@ const SpecificJokeIntentHandler: RequestHandler = {
         const joke = await getJoke(slot)
         if (joke)
             return handlerInput.responseBuilder
-                .speak(`${joke.question} ${joke.answer}`)
+                .speak(`${joke.question} <break time="2s"/> ${joke.answer}`)
                 .reprompt(reprompt)
                 .getResponse()
         return handlerInput.responseBuilder.speak(jokeSearchError).reprompt(reprompt).getResponse()
