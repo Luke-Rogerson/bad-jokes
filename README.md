@@ -1,5 +1,3 @@
-<img src="https://symbols.getvecta.com/stencil_9/36_lambda-function.af8a49a289.png" width="30" height="30" />
-
 # Luke's bad jokes
 _An Alexa skill for those times when you just need a cheesy joke!_
 
@@ -19,6 +17,6 @@ The Lambda backend is hosted on AWS.
 
 Of course! All of the source code for the skill is located in this repo. Feel free to clone it, copy it, change it, whatever.
 
-[Here is a blog post](https://lukerogerson.me/alexa-skill-nodejs-typescript/alexa-skill-nodejs-typescript/) I wrote about building it, which basically details the entire process and hopefully gets you over some earlier stumbling blocks that I faced!
+[Here is a blog post](https://lukerogerson.me/blog/alexa-skill-nodejs-typescript/alexa-skill-nodejs-typescript/) I wrote about building it, which basically details the entire process and hopefully gets you over some earlier stumbling blocks that I faced!
 
 Eventually, I want to create an opinionated boilerplate for building an Alexa skill in Node.js and TypeScript! Look out for that!
